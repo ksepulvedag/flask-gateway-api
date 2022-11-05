@@ -127,15 +127,18 @@ def update_user(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = config_data["url-backend-security"] + '/user/'+id
     response = requests.put(url, headers=headers, json=data)
-    json = response.json()
-    return jsonify(json)
+    if response.content == b'':
+        return jsonify({"msg":"User not found"})
+    else:
+        json = response.json()
+        return jsonify(json)
 
 @app.route("/user/<string:id>",methods=['DELETE'])
 def delete_user(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = config_data["url-backend-security"] + '/user/' + id
     response = requests.delete(url, headers=headers)
-    return jsonify([{"msg":"User has been succesfully deleted"},{"status_code":response.status_code}])
+    return jsonify({"msg":"User has been succesfully deleted"})
 
 
 
