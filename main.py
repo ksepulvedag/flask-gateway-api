@@ -238,10 +238,9 @@ def get_permissions_roles():
 
 @app.route("/permissions-roles/role/<string:role_id>/permission/<string:permission_id>",methods=['POST'])
 def create_permissions_roles(role_id, permission_id):
-    data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = config_data["url-backend-security"] + '/permissions-roles/role/'+role_id+'/permission/'+permission_id
-    response = requests.post(url, headers=headers,json=data)
+    response = requests.post(url, headers=headers)
     json = response.json()
     return jsonify(json)
 
